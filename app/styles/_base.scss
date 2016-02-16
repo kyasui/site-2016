@@ -1,6 +1,57 @@
 body {
-  font-family: Helvetica, sans-serif;
-  color: $font-color--dark;
-  background-color: $background--light;
-  padding: $half-space;
+  font-family: 'Helvetica Neue' ,Helvetica,Arial,sans-serif;
+  line-height: 1.5;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  height: 100%;
+
+  background: $white;
+
+  &.is-locked {
+    overflow: hidden;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+.button {
+  font-size: 12px;
+  font-weight: 800;
+  color: $white;
+
+  display: inline-block;
+  padding: 5px 10px;
+
+  background: rgba(0,0,0,0.6);
+
+  letter-spacing: .5px;
+
+  transition: background .2s ease-in-out;
+
+  &:hover {
+    background: rgba(0,0,0,1.0);
+  }
+}
+
+.content-width {
+  max-width: 910px;
+  width: 100%;
+  margin: 0 auto;
+
+  @media (max-width: 640px) {
+    width: 90%;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  @media (min-width: 1400px) {
+    max-width: 1400px;
+    width: 90%;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
 }

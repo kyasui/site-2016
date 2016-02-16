@@ -1,11 +1,17 @@
 'use strict';
 
 import React              from 'react';
+import ReactTransitionGroup    from 'react/lib/ReactTransitionGroup';
 
-import CurrentUserActions from './actions/CurrentUserActions';
-import CurrentUserStore   from './stores/CurrentUserStore';
 import Header             from './components/Header';
 import Footer             from './components/Footer';
+import Overlay            from './components/Overlay';
+import Project            from './components/Project';
+import LoadingIndicator   from './components/LoadingIndicator';
+
+import NotFoundPage       from './pages/NotFoundPage';
+
+import BadUtils           from './utils/BadUtils';
 
 const propTypes = {
   params: React.PropTypes.object,
@@ -21,19 +27,40 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.onUserChange = this.onUserChange.bind(this);
-
     this.state = {
-      currentUser: {}
+      showOverlay: false,
+      overlayTarget: '',
+      indicatorWidth: 0
     };
+
+    this.showOverlay = this.showOverlay.bind(this);
+    this.closeOverlay = this.closeOverlay.bind(this);
+    this.handleLoading = this.handleLoading.bind(this);
+    this.resetLoading = this.resetLoading.bind(this);
   }
 
-  onUserChange(err, user) {
-    if ( err ) {
-      this.setState({ error: err });
-    } else {
-      this.setState({ currentUser: user || {}, error: null });
+  showOverlay(overlayTarget, e) {
+    e.preventDefault();
+
+    BadUtils.lockBodyScroll(!this.state.showOverlay);
+
+    this.setState({
+      showOverlay: !this.state.showOverlay,
+      overlayTarget: overlayTarget
+    });
+  }
+
+  closeOverlay(e) {
+    if (e) {
+      e.preventDefault();
     }
+
+    BadUtils.lockBodyScroll(!this.state.showOverlay);
+
+    this.setState({
+      showOverlay: !this.state.showOverlay,
+      overlayTarget: ''
+    });
   }
 
   componentWillMount() {
@@ -41,37 +68,58 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.unsubscribe = CurrentUserStore.listen(this.onUserChange);
-    CurrentUserActions.checkLoginStatus();
+    // this.unsubscribe = CurrentUserStore.listen(this.onUserChange);
+    // CurrentUserActions.checkLoginStatus();
   }
 
   componentWillUnmount() {
-    this.unsubscribe();
+
+  }
+
+  handleLoading(width) {
+    this.refs['loading-indicator'].updateWidth(width);
+  }
+
+  resetLoading() {
+    this.refs['loading-indicator'].updateWidth(0);
+    this.refs['loading-indicator'].show();
   }
 
   renderChildren() {
     return React.cloneElement(this.props.children, {
       params: this.props.params,
       query: this.props.query,
-      currentUser: this.state.currentUser
     });
   }
 
   render() {
     return (
       <div>
+        <Header showOverlay={this.showOverlay}/>
 
-        <Header />
-
-        {this.renderChildren()}
+        <ReactTransitionGroup component="div">
+          {React.cloneElement(this.props.children, {
+            key: this.props.location.pathname,
+            handleLoading: this.handleLoading,
+            resetLoading: this.resetLoading
+          })}
+        </ReactTransitionGroup>
 
         <Footer />
 
+        <ReactTransitionGroup component="div">
+          { this.state.showOverlay ? <Overlay history={this.props.history} initialOverlayTarget={this.state.overlayTarget} handleClose={this.closeOverlay}/> : null }
+        </ReactTransitionGroup>
+        <LoadingIndicator ref="loading-indicator" />
       </div>
     );
   }
 
 }
+
+App.contextTypes = {
+    history: React.PropTypes.object
+};
 
 App.propTypes = propTypes;
 

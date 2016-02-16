@@ -37,7 +37,10 @@ const config = {
     'otf',
     'ttc',
     'ttf',
-    'woff2?'
+    'woff2?',
+    'mp4',
+    'ogv',
+    'webm'
   ]
 
 };

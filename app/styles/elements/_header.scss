@@ -1,4 +1,32 @@
-header {
-  height: 50px;
-  background: #eeeeee;
+.site-logo {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+
+  width: 57px;
+  height: auto;
+
+  z-index: 3;
+
+  transition: box-shadow .2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+}
+
+.site-nav {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+
+  display: flex;
+  justify-content: flex-end;
+
+  z-index: 3;
+}
+
+.nav-item {
+  margin-left: 20px;
+  float: left;
 }
