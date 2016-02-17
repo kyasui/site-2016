@@ -16,8 +16,8 @@ class LandingPage extends React.Component {
     Velocity(landingPage, {
         opacity: [ 1.0, 0.0 ]
       }, {
-        duration: 750,
-        delay: 1250,
+        duration: 375,
+        delay: 625,
         easing: 'easeInOutSine',
         complete: () => {
           callback()
@@ -31,8 +31,8 @@ class LandingPage extends React.Component {
     Velocity(landingPage, {
         opacity: 1.0
       }, {
-        duration: 750,
-        delay: 2000,
+        duration: 375,
+        delay: 1000,
         easing: 'easeInOutSine',
         complete: () => {
           callback()
@@ -41,11 +41,11 @@ class LandingPage extends React.Component {
   }
 
   componentDidAppear() {
-    console.log('did appear');
+    // console.log('did appear');
   }
 
   componentDidEnter() {
-    console.log('did enter');
+    // console.log('did enter');
   }
 
   componentWillLeave(callback) {
@@ -54,8 +54,8 @@ class LandingPage extends React.Component {
     Velocity(landingPage, {
         opacity: 0.0
       }, {
-        duration: 750,
-        delay: 500,
+        duration: 375,
+        delay: 250,
         easing: 'easeInOutSine',
         complete: () => {
           callback()

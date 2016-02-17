@@ -10,8 +10,6 @@ import ProjectsData       from '../data/ProjectsData';
 class Project extends React.Component{
   constructor(props) {
     super(props);
-
-
   }
 
   componentWillAppear(callback) {
@@ -30,14 +28,13 @@ class Project extends React.Component{
         opacity: 1.0
       },
       {
-        duration: 1000,
+        duration: 500,
         display: 'block',
         easing: 'easeInOutSine',
         complete: function() {
           var imgLoad = ImagesLoaded(self.refs['project'], { background: '.js-image' });
 
           imgLoad.on('progress', (instance, image) => {
-            console.log(image);
             if(image.isLoaded) {
               if (image.element) {
                 image.element.classList.add('loaded');
@@ -64,8 +61,8 @@ class Project extends React.Component{
                   opacity: [ 1.0, 0.0 ]
                 },
                 {
-                  duration: 750,
-                  delay: 50 * (index + 1),
+                  duration: 375,
+                  delay: 25 * (index + 1),
                   easing: 'easeInOutSine',
                   complete: () => {
                     if (index === projectElementsLength - 1) {
@@ -78,10 +75,10 @@ class Project extends React.Component{
               Velocity(projectVideo, {
                   opacity: 1.0
                 }, {
-                  duration: 250
+                  duration: 125
                 });
               callback()
-            }, 500);
+            }, 250);
           });
         }
       });
@@ -105,8 +102,8 @@ class Project extends React.Component{
         opacity: 1.0
       },
       {
-        duration: 1000,
-        delay: 2000,
+        duration: 500,
+        delay: 1000,
         display: 'block',
         easing: 'easeInOutSine',
         complete: function() {
@@ -140,8 +137,8 @@ class Project extends React.Component{
                     opacity: [ 1.0, 0.0 ]
                   },
                   {
-                    duration: 750,
-                    delay: 50 * index,
+                    duration: 375,
+                    delay: 25 * index,
                     easing: 'easeInOutSine',
                     complete: () => {
                       if (index === projectElementsLength - 1) {
@@ -153,17 +150,18 @@ class Project extends React.Component{
               Velocity(projectVideo, {
                   opacity: 1.0
                 }, {
-                  duration: 250
+                  duration: 125
                 });
               callback()
-            }, 500);
+            }, 250);
           });
         }
       });
   }
 
   componentDidMount() {
-
+    // Todo: Overlay based on query string?
+    console.log(this.props.location.query);
   }
 
   componentDidAppear() {
@@ -190,7 +188,7 @@ class Project extends React.Component{
         opacity: [ 0.0, 1.0 ]
       },
       {
-        duration: 500,
+        duration: 250,
         complete: () => {
           [...projectElements].forEach((el, index) => {
             Velocity(el,
@@ -200,8 +198,8 @@ class Project extends React.Component{
               opacity: [ 0.0, 1.0 ]
             },
             {
-              duration: 750,
-              delay: 50 * index,
+              duration: 375,
+              delay: 25 * index,
               easing: 'easeInOutSine',
               complete: () => {}
             });
@@ -211,8 +209,8 @@ class Project extends React.Component{
               opacity: 0.0
             },
             {
-              duration: 1000,
-              delay: 100,
+              duration: 500,
+              delay: 50,
               easing: 'easeInOutSine',
               complete: function() {
                 callback()

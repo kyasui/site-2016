@@ -31,7 +31,7 @@ class Overlay extends React.Component{
         translateZ: [ 0, 0 ]
       },
       {
-        duration: 750,
+        duration: 375,
         display: 'block',
         easing: 'easeInOutSine',
         complete: function() {
@@ -41,8 +41,8 @@ class Overlay extends React.Component{
               opacity: [ 1.0, 0 ]
             },
             {
-              duration: 750,
-              delay: 1000,
+              duration: 375,
+              delay: 500,
               easing: 'easeInOutSine',
             });
 
@@ -54,8 +54,8 @@ class Overlay extends React.Component{
                 opacity: [ 1.0, 0 ]
               },
               {
-                duration: 500,
-                delay: 100 * (index + 1),
+                duration: 250,
+                delay: 50 * (index + 1),
                 easing: 'easeInOutSine',
               });
           });
@@ -65,11 +65,11 @@ class Overlay extends React.Component{
   }
 
   componentDidAppear() {
-    console.log('hellllo3');
+    // console.log('hellllo3');
   }
 
   componentDidEnter() {
-    console.log('hellllo4');
+    // console.log('hellllo4');
   }
 
   componentWillLeave(callback) {
@@ -84,8 +84,8 @@ class Overlay extends React.Component{
         opacity: [ 0.0, 1.0 ]
       },
       {
-        duration: 750,
-        delay: 500,
+        duration: 375,
+        delay: 250,
         easing: 'easeInOutSine',
       });
 
@@ -97,8 +97,8 @@ class Overlay extends React.Component{
         opacity: [ 0.0, 1.0 ]
       },
       {
-        duration: 500,
-        delay: 25 * (index + 1),
+        duration: 250,
+        delay: 12 * (index + 1),
         easing: 'easeInOutSine',
         complete: () => {
           if (index === projectLinksLength - 1) {
@@ -107,8 +107,8 @@ class Overlay extends React.Component{
                 opacity: [ 0.0, 1.0 ]
               },
               {
-                duration: 750,
-                delay: 50,
+                duration: 375,
+                delay: 25,
                 display: 'none',
                 easing: 'easeInOutSine',
                 complete: function() {
@@ -122,7 +122,7 @@ class Overlay extends React.Component{
   }
 
   componentDidLeave() {
-    console.log("LEFT");
+    // console.log("LEFT");
   }
 
   handleProjectClick(projectId, e) {
@@ -138,8 +138,8 @@ class Overlay extends React.Component{
         opacity: [ 0.0, 1.0 ]
       },
       {
-        duration: 750,
-        delay: 500,
+        duration: 375,
+        delay: 250,
         easing: 'easeInOutSine',
       });
 
@@ -153,8 +153,8 @@ class Overlay extends React.Component{
           opacity: [ 0.0, 1.0 ]
         },
         {
-          duration: 500,
-          delay: 50 * index,
+          duration: 250,
+          delay: 25 * index,
           easing: 'easeInOutSine',
           complete: () => {
             if (index === projectLinksLength - 1) {
@@ -163,8 +163,8 @@ class Overlay extends React.Component{
                   opacity: [ 0.0, 1.0 ]
                 },
                 {
-                  duration: 750,
-                  delay: 250,
+                  duration: 375,
+                  delay: 125,
                   display: 'none',
                   easing: 'easeInOutSine',
                   complete: function() {
@@ -182,8 +182,8 @@ class Overlay extends React.Component{
               opacity: [ 0.0, 1.0 ]
             },
             {
-              duration: 750,
-              delay: 1000,
+              duration: 375,
+              delay: 500,
               display: 'none',
               easing: 'easeInOutSine',
               complete: function() {
@@ -199,7 +199,7 @@ class Overlay extends React.Component{
   render() {
     var OverlayContent;
 
-    if (this.state.overlayTarget == 'projects-overlay') {
+    if (this.state.overlayTarget == 'projects') {
       OverlayContent = <OverlayProjects handleClick={this.handleProjectClick} />
     } else {
       OverlayContent = <OverlayInfo />
