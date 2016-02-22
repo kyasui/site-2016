@@ -3,7 +3,7 @@
 import React              from 'react';
 import ReactTransitionGroup    from 'react/lib/ReactTransitionGroup';
 
-import Header             from './components/Header';
+import Nav             from './components/Nav';
 import Footer             from './components/Footer';
 import Overlay            from './components/Overlay';
 import Project            from './components/Project';
@@ -95,7 +95,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header showOverlay={this.showOverlay}/>
+        <Nav history={this.props.history} showOverlay={this.showOverlay}/>
 
         <ReactTransitionGroup component="div">
           {React.cloneElement(this.props.children, {

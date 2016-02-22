@@ -1,5 +1,5 @@
 body {
-  font-family: 'Helvetica Neue' ,Helvetica,Arial,sans-serif;
+  font-family: 'SuisseIntl-Book-WebS', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.5;
 
   -webkit-font-smoothing: antialiased;
@@ -12,6 +12,15 @@ body {
   &.is-locked {
     overflow: hidden;
   }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
 }
 
 a {
@@ -53,5 +62,13 @@ a {
     width: 90%;
     padding-left: 5%;
     padding-right: 5%;
+  }
+}
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
   }
 }

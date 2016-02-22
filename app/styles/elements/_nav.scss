@@ -1,0 +1,77 @@
+.site-nav {
+  padding-top: 5%;
+  padding-left: 5%;
+  padding-bottom: 5%;
+
+  z-index: 3;
+
+  position: relative;
+}
+
+.site-nav-header {
+  overflow: hidden;
+}
+
+.site-nav-scroll-content {
+  margin-top: 200px;
+  min-height: 1000px;
+}
+
+.logo {
+  margin-bottom: 0px;
+}
+
+.title {
+  margin-top: 120px;
+}
+
+.site-nav-item {
+  color: $white;
+  display: inline-block;
+
+  float: left;
+  clear: both;
+}
+
+.site-nav-sub-item {
+  font-size: 18px;
+  line-height: 26px;
+
+  letter-spacing: -0.3px;
+
+  margin-bottom: 36px;
+}
+
+.site-nav-main-item {
+  font-size: 124px;
+  line-height: 124px;
+
+  letter-spacing: -1px;
+}
+
+.about-content {
+  width: 50%;
+  margin-bottom: 5px;
+  margin-top: 5px;
+
+  a {
+    color: $white;
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+}
+
+.project-item {
+  position: absolute;
+  left: 5%;
+  top: 0;
+}
+
+.project-description {
+  margin-top: 0;
+  margin-bottom: 50px;
+
+  opacity: 0.0;
+}

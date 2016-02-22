@@ -11,7 +11,6 @@ class LandingPage extends React.Component {
 
   componentWillAppear(callback) {
     var landingPage = this.refs['landing-page'];
-    console.log('will appear');
 
     Velocity(landingPage, {
         opacity: [ 1.0, 0.0 ]
@@ -74,7 +73,8 @@ class LandingPage extends React.Component {
   render() {
     return (
       <section ref="landing-page" className="landing-page">
-        <video className="landing-page-video" autoPlay loop muted poster="landing-poster.jpg">
+        <div className="landing-tint"></div>
+        <video className="landing-page-video" autoPlay loop muted poster="/video/landing-poster.jpg">
           <source src="/video/landing.mp4" type="video/mp4" />
         </video>
       </section>
@@ -84,3 +84,4 @@ class LandingPage extends React.Component {
 }
 
 export default LandingPage;
+

@@ -6,6 +6,7 @@ const ProjectsData = {
     {
       'project-slug': 'google-primer',
       'project-title': 'Google Primer',
+      'project-role': 'Tech Lead / Developer',
       'images': {
         'hero': {
           'type': 'monitor',
@@ -36,6 +37,7 @@ const ProjectsData = {
     {
       'project-slug': 'john-heart-jackie',
       'project-title': 'John Heart Jackie',
+      'project-role': 'Developer',
       'images': {
         'hero': {
           'type': 'full-screen',
@@ -65,6 +67,7 @@ const ProjectsData = {
     {
       'project-slug': 'xian-foods',
       'project-title': 'Xian Famous Foods',
+      'project-role': 'Designer / Developer',
       'images': {
         'hero': {
           'type': 'monitor',
@@ -95,6 +98,69 @@ const ProjectsData = {
     {
       'project-slug': 'red-peak',
       'project-title': 'Red Peak Media',
+      'project-role': 'Developer',
+      'images': {
+        'hero': {
+          'type': 'monitor',
+          'asset': '/images/primer-hero.png'
+        },
+        'details': [
+          {
+            'type': 'tablet',
+            'asset': '/images/primer-tablet.png'
+          },
+          {
+            'type': 'phone',
+            'asset': '/images/primer-phone.png'
+          }
+        ],
+      },
+      'description': {
+        'body': 'RED PEAK Fusce urna lorem, tristique eu nulla quis, commodo scelerisque elit. Nulla euismod et risus a vehicula.',
+        'role': 'Development'
+      },
+      'link': 'https://www.yourprimer.com/',
+      'additional': {
+        'type': 'video',
+        'poster': 'video/landing-poster.jpg',
+        'asset': '/video/primer-site.mp4'
+      }
+    },
+    {
+      'project-slug': 'red-peak',
+      'project-title': 'The Dejargonizer',
+      'project-role': 'Designer / Developer',
+      'images': {
+        'hero': {
+          'type': 'monitor',
+          'asset': '/images/primer-hero.png'
+        },
+        'details': [
+          {
+            'type': 'tablet',
+            'asset': '/images/primer-tablet.png'
+          },
+          {
+            'type': 'phone',
+            'asset': '/images/primer-phone.png'
+          }
+        ],
+      },
+      'description': {
+        'body': 'RED PEAK Fusce urna lorem, tristique eu nulla quis, commodo scelerisque elit. Nulla euismod et risus a vehicula.',
+        'role': 'Development'
+      },
+      'link': 'https://www.yourprimer.com/',
+      'additional': {
+        'type': 'video',
+        'poster': 'video/landing-poster.jpg',
+        'asset': '/video/primer-site.mp4'
+      }
+    },
+    {
+      'project-slug': 'red-peak',
+      'project-title': 'Red Peak Youth',
+      'project-role': 'Developer',
       'images': {
         'hero': {
           'type': 'monitor',
