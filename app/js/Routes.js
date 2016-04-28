@@ -16,5 +16,3 @@ export default (
     </Route>
   </Router>
 );
-
-// <IndexRedirect to={'/project/google-primer'} />

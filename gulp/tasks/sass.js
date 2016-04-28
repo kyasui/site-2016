@@ -2,6 +2,7 @@
 
 import gulp         from 'gulp';
 import sass         from 'gulp-sass';
+import sourcemaps   from 'gulp-sourcemaps';
 import gulpif       from 'gulp-if';
 import browserSync  from 'browser-sync';
 import autoprefixer from 'gulp-autoprefixer';
@@ -11,6 +12,7 @@ import config       from '../config';
 gulp.task('sass', function() {
 
   return gulp.src(config.styles.src)
+    .pipe(sourcemaps.init())
     .pipe(sass({
       sourceComments: global.isProd ? 'none' : 'map',
       sourceMap: 'sass',
@@ -18,6 +20,7 @@ gulp.task('sass', function() {
     }))
     .on('error', handleErrors)
     .pipe(autoprefixer('last 2 versions', '> 1%', 'ie 8'))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(config.styles.dest))
     .pipe(gulpif(browserSync.active, browserSync.reload({ stream: true })));
 

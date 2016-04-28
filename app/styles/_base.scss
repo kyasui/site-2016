@@ -5,6 +5,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  // text-rendering: auto;
+  // -webkit-text-rendering: optimizeSpeed;
+  // -webkit-text-rendering: optimizeLegibility;
+  // -webkit-text-rendering: geometricPrecision;
+  // text-rendering: inherit
+
+  font-kerning: normal;
+
   height: 100%;
 
   background: $white;

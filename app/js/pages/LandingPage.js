@@ -1,7 +1,7 @@
 'use strict';
 
 import React         from 'react';
-import {Link}        from 'react-router';
+import Velocity      from 'velocity-animate';
 
 class LandingPage extends React.Component {
 
@@ -9,72 +9,65 @@ class LandingPage extends React.Component {
     super(props);
   }
 
-  componentWillAppear(callback) {
-    var landingPage = this.refs['landing-page'];
+  initVideo(callback) {
+    var landingVid = document.getElementById('landing-video');
 
-    Velocity(landingPage, {
-        opacity: [ 1.0, 0.0 ]
+    landingVid.addEventListener('canplay', () => {
+      Velocity(landingVid, {
+          opacity: [ 1.0, 0.0 ]
+        }, {
+          duration: 3000,
+          delay: 500,
+          complete: () => {
+            callback();
+          }
+        });
+    });
+  }
+
+  removeVideo(callback) {
+    var landingVid = document.getElementById('landing-video');
+    landingVid.pause();
+
+    Velocity(landingVid, {
+        opacity: 0.0
       }, {
-        duration: 375,
-        delay: 625,
-        easing: 'easeInOutSine',
+        duration: 500,
         complete: () => {
           callback()
         }
       });
+  }
+
+  componentWillAppear(callback) {
+    this.initVideo(callback);
   }
 
   componentWillEnter(callback) {
-    var landingPage = this.refs['landing-page'];
-
-    Velocity(landingPage, {
-        opacity: 1.0
-      }, {
-        duration: 375,
-        delay: 1000,
-        easing: 'easeInOutSine',
-        complete: () => {
-          callback()
-        }
-      });
+    this.initVideo(callback);
   }
 
   componentDidAppear() {
-    // console.log('did appear');
   }
 
   componentDidEnter() {
-    // console.log('did enter');
   }
 
   componentWillLeave(callback) {
-    var landingPage = this.refs['landing-page'];
-
-    Velocity(landingPage, {
-        opacity: 0.0
-      }, {
-        duration: 375,
-        delay: 250,
-        easing: 'easeInOutSine',
-        complete: () => {
-          callback()
-        }
-      });
+    this.removeVideo(callback);
   }
 
   componentDidLeave() {
-    console.log('did left');
   }
 
   componentDidMount() {
-    console.log('mount');
   }
 
   render() {
     return (
       <section ref="landing-page" className="landing-page">
         <div className="landing-tint"></div>
-        <video className="landing-page-video" autoPlay loop muted poster="/video/landing-poster.jpg">
+        <video id="landing-video" className="landing-page-video" autoPlay loop muted poster="/video/landing-poster.jpg">
           <source src="/video/landing.mp4" type="video/mp4" />
         </video>
       </section>
@@ -85,3 +78,7 @@ class LandingPage extends React.Component {
 
 export default LandingPage;
 
+// <div className="landing-tint"></div>
+// <video className="landing-page-video" autoPlay loop muted poster="/video/landing-poster.jpg">
+//   <source src="/video/landing.mp4" type="video/mp4" />
+// </video>

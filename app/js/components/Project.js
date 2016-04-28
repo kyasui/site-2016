@@ -6,329 +6,343 @@ import ImagesLoaded       from 'imagesLoaded';
 import Velocity           from 'velocity-animate';
 
 import ProjectsData       from '../data/ProjectsData';
+import BadUtils           from '../utils/BadUtils';
 
 class Project extends React.Component{
   constructor(props) {
     super(props);
+
+    this.state = {
+      scrollFunction: {},
+      isAnimatingToNextProject: false
+    };
+
+    this.nextProject = this.nextProject.bind(this);
+  }
+
+  nextProject(projectId, e) {
+    e.preventDefault();
+    this.setState({
+      isAnimatingToNextProject: true
+    });
+    Velocity(document.getElementsByTagName('html')[0], 'scroll', {
+      offset: 0,
+      duration: 200,
+      complete: () => {
+        Velocity(this.refs['project'],
+          {
+            translateZ: [ 0, 0 ],
+            opacity: [ 0.0, 1.0 ]
+          },
+          {
+            duration: 200,
+            easing: [.22,.22,.18,1],
+            complete: () => {
+              this.props.history.pushState(null, projectId);
+              ga('set', 'page', projectId);
+            }
+          });
+      }
+    });
   }
 
   componentWillAppear(callback) {
+    this.initProject(false, false, callback);
+  }
+
+  initProject(shouldAnimate, isFromProject, callback) {
     var self = this;
 
-    var projectElements = this.refs['project'].querySelectorAll('.animate-this'),
-        projectElementsLength = projectElements.length;
+    this.props.setNav(null, shouldAnimate, null, this.props.params.slug, isFromProject);
 
-    var projectImages = this.refs['project'].querySelectorAll('.js-image'),
-        projectImagesLength = projectImages.length;
+    var projectElements = this.refs['project'].querySelectorAll('.animate-this');
 
-    var projectVideo = this.refs['project-additional'];
+    var position = document.body.scrollTop,
+        scrollTimer = -1;
+
+    var scrollFunction = function() {
+      var scroll = document.body.scrollTop,
+          action = 'SHOW';
+
+      if (scroll > position) {
+        action = 'HIDE';
+      } else {
+        action = 'SHOW';
+      }
+
+      if (scrollTimer != -1)
+        clearTimeout(scrollTimer);
+
+      scrollTimer = setTimeout(self.props.controlDesc(action, self.props.params.slug), 500);
+      position = scroll;
+    }
+
+    Velocity(document.getElementsByTagName('html')[0], 'scroll', {
+        offset: 0,
+        duration: 125,
+        complete: () => {
+          self.setState({
+            scrollFunction: BadUtils.debounce(() => {
+              scrollFunction();
+            }, 0)
+          });
+
+          window.addEventListener('scroll', self.state.scrollFunction);
+        }
+    });
 
     Velocity(this.refs['project'],
       {
         opacity: 1.0
       },
       {
-        duration: 500,
+        duration: 250,
         display: 'block',
-        easing: 'easeInOutSine',
+        easing: [.22,.22,.18,1],
         complete: function() {
-          var imgLoad = ImagesLoaded(self.refs['project'], { background: '.js-image' });
+          var imgLoad = ImagesLoaded(self.refs['project'], { background: '.js-image' }),
+              projectImg = self.refs['project'].querySelector('.project-header-image'),
+              preloader = self.refs['project'].querySelector('.preloader');
 
-          imgLoad.on('progress', (instance, image) => {
-            if(image.isLoaded) {
-              if (image.element) {
-                image.element.classList.add('loaded');
-              } else {
-                image.img.classList.add('loaded');
-              }
-            }
-
-            var loadedImagesLength = self.refs['project'].querySelectorAll('.loaded').length,
-                width = Math.ceil(100 * (loadedImagesLength / projectImagesLength));
-
-            self.props.handleLoading(width);
-
-            if (projectImagesLength === loadedImagesLength) {
-              console.log('ya done');
-            }
-          }).on('always', () => {
-            setTimeout(() => {
-              [...projectElements].forEach((el, index) => {
-                Velocity(el,
-                {
-                  translateY: [ 0, -10 ],
-                  translateZ: [ 0, 0 ],
-                  opacity: [ 1.0, 0.0 ]
-                },
-                {
-                  duration: 375,
-                  delay: 25 * (index + 1),
-                  easing: 'easeInOutSine',
-                  complete: () => {
-                    if (index === projectElementsLength - 1) {
-
-                    }
-                  }
-                });
+          imgLoad.on('progress', (instance, image) => {}).on('always', () => {
+            Velocity(projectImg,
+              {
+                opacity: [ 1.0, 0.0 ]
+              },
+              {
+                duration: 1000,
+                delay: 500,
+                easing: [.22,.22,.18,1]
               });
 
-              Velocity(projectVideo, {
-                  opacity: 1.0
-                }, {
-                  duration: 125
-                });
-              callback()
-            }, 250);
+            Velocity(preloader,
+              {
+                opacity: [ 0.0, 1.0 ]
+              },
+              {
+                duration: 1000,
+                easing: [.22,.22,.18,1]
+              });
           });
+
+          setTimeout(() => {
+            [...projectElements].forEach((el, index) => {
+              Velocity(el,
+              {
+                translateY: [ 0, -10 ],
+                translateZ: [ 0, 0 ],
+                opacity: [ 1.0, 0.0 ]
+              },
+              {
+                duration: 180,
+                delay: 25 * (index + 1),
+                easing: [.22,.22,.18,1]
+              });
+            });
+
+            self.refs['project'].classList.add('current-active-project');
+            callback()
+          }, 600);
         }
       });
   }
 
   componentWillEnter(callback) {
-    var self = this;
-
-    var projectElements = this.refs['project'].querySelectorAll('.animate-this'),
-        projectElementsLength = projectElements.length;
-
-    var projectImages = this.refs['project'].querySelectorAll('.js-image'),
-        projectImagesLength = projectImages.length;
-
-    var projectVideo = this.refs['project-additional'];
-
-    console.log('sup');
-
-    Velocity(this.refs['project'],
-      {
-        opacity: 1.0
-      },
-      {
-        duration: 500,
-        delay: 1000,
-        display: 'block',
-        easing: 'easeInOutSine',
-        complete: function() {
-          var imgLoad = ImagesLoaded(self.refs['project'], { background: '.js-image' });
-
-          imgLoad.on('progress', (instance, image) => {
-            console.log(image);
-            if(image.isLoaded) {
-              if (image.element) {
-                image.element.classList.add('loaded');
-              } else {
-                image.img.classList.add('loaded');
-              }
-            }
-
-            var loadedImagesLength = self.refs['project'].querySelectorAll('.loaded').length,
-                width = Math.ceil(100 * (loadedImagesLength / projectImagesLength));
-
-            self.props.handleLoading(width);
-
-            if (projectImagesLength === loadedImagesLength) {
-              console.log('ya done');
-            }
-          }).on('always', () => {
-            setTimeout(() => {
-              [...projectElements].forEach((el, index) => {
-                Velocity(el,
-                  {
-                    translateY: [ 0, -10 ],
-                    translateZ: [ 0, 0 ],
-                    opacity: [ 1.0, 0.0 ]
-                  },
-                  {
-                    duration: 375,
-                    delay: 25 * index,
-                    easing: 'easeInOutSine',
-                    complete: () => {
-                      if (index === projectElementsLength - 1) {
-
-                      }
-                    }
-                  });
-              });
-              Velocity(projectVideo, {
-                  opacity: 1.0
-                }, {
-                  duration: 125
-                });
-              callback()
-            }, 250);
-          });
-        }
-      });
+    this.initProject(true, true, callback);
   }
 
   componentDidMount() {
-    // Todo: Overlay based on query string?
-    console.log(this.props.location.query);
+
   }
 
   componentDidAppear() {
-    console.log('hellllo3');
+
   }
 
   componentDidEnter() {
-    console.log('hellllo4');
+
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.params.slug != this.props.params.slug;
   }
 
   componentWillLeave(callback) {
     var self = this;
 
-    var projectElements = this.refs['project'].querySelectorAll('.animate-this'),
-        projectElementsLength = projectElements.length;
+    window.removeEventListener('scroll', self.state.scrollFunction);
 
-    var projectVideo = this.refs['project-additional'];
+    if (!self.state.isAnimatingToNextProject) {
+      self.props.resetNav(null, this.props.params.slug);
 
-    self.props.resetLoading();
-
-    Velocity(projectVideo,
-      {
-        translateZ: 0,
-        opacity: [ 0.0, 1.0 ]
-      },
-      {
-        duration: 250,
-        complete: () => {
-          [...projectElements].forEach((el, index) => {
-            Velocity(el,
-            {
-              translateY: [ -15, 0 ],
-              translateZ: [ 0, 0 ],
-              opacity: [ 0.0, 1.0 ]
-            },
-            {
-              duration: 375,
-              delay: 25 * index,
-              easing: 'easeInOutSine',
-              complete: () => {}
-            });
-          });
-          Velocity(self.refs['project'],
-            {
-              opacity: 0.0
-            },
-            {
-              duration: 500,
-              delay: 50,
-              easing: 'easeInOutSine',
-              complete: function() {
-                callback()
-              }
-            });
-        }
-      });
+      Velocity(this.refs['project'],
+        {
+          translateZ: [ 0, 0 ],
+          opacity: [ 0.0, 1.0 ]
+        },
+        {
+          duration: 200,
+          easing: [.22,.22,.18,1],
+          complete: () => {
+            callback();
+          }
+        });
+    } else {
+      callback();
+    }
   }
 
   componentDidLeave() {
-    console.log('did left');
   }
 
   render() {
     var currentProject;
+    var nextProject;
 
-    ProjectsData.projects.forEach((project) => {
+    ProjectsData.projects.forEach((project, index) => {
       if (project['project-slug'] === this.props.params.slug) {
         currentProject = project;
+        if ((index + 1) > ProjectsData.projects.length - 1) {
+          nextProject = ProjectsData.projects[0];
+        } else {
+          nextProject = ProjectsData.projects[index + 1];
+        }
       }
     });
 
     return (
       <div ref="project" className="project">
           {(() => {
-            switch (currentProject['images']['hero']['type']) {
-              case 'monitor':
-                return (
-                  <header className="project-header">
-                    <div className="project-header-image-content content-width animate-this">
-                      <div className="project-header-image-holder">
-                        <img className="project-header-image-frame js-image" src='/images/monitor-frame.png' />
-                        <img className="project-header-image js-image" src={currentProject['images']['hero']['asset']} />
-                      </div>
-                    </div>
-                  </header>
-                );
-              case 'full-screen':
-                return (
-                    <header className="project-header-full-screen animate-this">
-                      <div className="project-header-image-full-screen js-image" style={{ 'backgroundImage' : 'url(' + currentProject['images']['hero']['asset'] + ')' }}></div>
-                    </header>
-                );
-              default:
-                return '';
-            }
+            return (
+              <header className="project-header">
+                <div className="project-header-image-holder animate-this">
+                  <div className="project-header-image-content">
+                      <div className="preloader"></div>
+                      <img className="project-header-image js-image" src={currentProject['image']} />
+                  </div>
+                </div>
+              </header>
+            );
           })()}
-        <div className="project-details content-width">
-          <div className="project-column col-2-3">
-            {(() => {
-              var detailImages = currentProject['images']['details'].map((detailImage, index) => {
-                  if (detailImage['type'] === 'tablet') {
-                    return(
-                      <div key={'detail-' + index} className="project-tablet-image-content animate-this">
-                        <div className="project-detail-image-holder">
-                          <img className="project-detail-image-frame js-image" src={'/images/tablet-frame.png'} />
-                          <img className="project-detail-image js-image" src={detailImage['asset']} />
+        <div className="project-details">
+
+          <div className="project-column col-3-3 animate-this">
+            <div className="project-detail-body">
+              <div className="project-row">
+                <div className="proj-detail-col">
+                  <strong className="project-detail-body-heading">Info</strong>
+                </div>
+                <div className="proj-detail-col">
+                  {(() => {
+                    var details = currentProject['description'].map((body, index) => {
+                      return(
+                        <p className="project-detail-body" key={index} dangerouslySetInnerHTML={{__html: body}}></p>
+                      )
+                    });
+
+                    return details;
+                  })()}
+                </div>
+              </div>
+              <div className="project-row">
+                <div className="proj-detail-col">
+                  <strong className="project-detail-body-heading">Role</strong>
+                </div>
+                <div className="proj-detail-col">
+                  <p>{currentProject['role']}</p>
+                </div>
+              </div>
+              <div className="project-row">
+                <div className="proj-detail-col">
+                  <strong className="project-detail-body-heading">Year</strong>
+                </div>
+                <div className="proj-detail-col">
+                  <p>{currentProject['year']}</p>
+                </div>
+              </div>
+              <div className="project-row">
+                <div className="proj-detail-col">
+                  <strong className="project-detail-body-heading">Tech</strong>
+                </div>
+                <div className="proj-detail-col">
+                  <p>
+                  {(() => {
+                    var techDetails = currentProject['tech'].map((tech, index) => {
+                      return(
+                        <span className="project-tech-detail" key={index}>{tech}</span>
+                      )
+                    });
+
+                    return techDetails;
+                  })()}
+                  </p>
+                </div>
+              </div>
+              <div className="project-row">
+                <div className="proj-detail-col">
+                  <strong className="project-detail-body-heading">Credits</strong>
+                </div>
+                <div className="proj-detail-col">
+                  <p>
+                  {(() => {
+                    if (currentProject['credits']) {
+                      var creditDetails = currentProject['credits'].map((credit, index) => {
+                        if (!credit['linkItself']) {
+                          return(
+                            <span className="project-detail-link" key={index}>{credit['credit']}</span>
+                          )
+                        } else {
+                          return(
+                            <a className="project-detail-link" href={credit['linkItself']} target="_blank" key={index}>{credit['credit']}</a>
+                          )
+                        }
+                      });
+                    }
+
+                    return creditDetails;
+                  })()}
+                  </p>
+                </div>
+              </div>
+                {(() => {
+                  if (currentProject['links']) {
+                    var linkDetails = currentProject['links'].map((link, index) => {
+                      return(
+                        <a className="project-detail-link" href={link['linkItself']} target="_blank" key={index}>{link['linkText']}</a>
+                      )
+                    });
+
+                    return (
+                      <div className="project-row">
+                        <div className="proj-detail-col">
+                          <strong className="project-detail-body-heading">Links</strong>
                         </div>
-                      </div>
-                    )
-                  } else if (detailImage['type'] === 'phone') {
-                    return(
-                      <div key={'detail-' + index} className="project-phone-image-content animate-this">
-                        <div className="project-detail-image-holder">
-                          <img className="project-detail-image-frame js-image" src='/images/phone-frame.png' />
-                          <img className="project-detail-image js-image" src={detailImage['asset']} />
+                        <div className="proj-detail-col">
+                          <p>
+                            {linkDetails}
+                          </p>
                         </div>
                       </div>
                     )
                   }
-                });
-
-              return detailImages;
-            })()}
-          </div>
-          <div className="project-column col-1-3 animate-this">
-            <h3 className="project-detail-heading">{currentProject['project-title']}</h3>
-            <div className="project-detail-body">
-              <p>{currentProject['description']['body']}</p>
-              <strong className="project-detail-body-heading">Role</strong>
-              <p>{currentProject['description']['role']}</p>
-            </div>
-            {(() => {
-              if (currentProject['link']) {
-                return(
-                  <a className="button" target="_blank" href={ currentProject['link'] }>VIEW</a>
-                )
-              }
-            })()}
-          </div>
-        </div>
-        <div ref="project-additional" className="project-additional">
-          <footer className="footer">
-            <h3 className="site-credit">
-              Kei Yasui / 2016
-            </h3>
-            <h3 className="site-meta">
-              Built with React / View Code
-            </h3>
-          </footer>
-          <div className="project-additional-tint"></div>
-          {(() => {
-            switch (currentProject['additional']['type']) {
-              case 'video':
-                return (
-                  <video className="project-additional-content" poster={currentProject['additional']['poster']} autoPlay loop muted>
-                    <source src={currentProject['additional']['asset']} type="video/mp4" />
-                  </video>
-                );
-              case 'image':
-                return (
-                  <div className="project-additional-content is-image" style={{ 'backgroundImage' : 'url(' + currentProject['additional']['asset'] + ')' }}>
+                })()}
+                <div className="project-row">
+                  <div className="proj-detail-col">
+                    <strong className="project-detail-body-heading">Next</strong>
                   </div>
-                );
-              default:
-                return '';
-            }
-          })()}
+                  <div className="proj-detail-col">
+                    <p>
+                      <a className="project-detail-link next-project-link" onClick={this.nextProject.bind(this, '/project/' + nextProject['project-slug'])} href={'/project/' + nextProject['project-slug']}>{nextProject['project-title']}
+                        <svg className="next-button" fill="#000000" height="24" viewBox="0 0 24 24">
+                          <path d="M0 0h24v24H0z" fill="none"/>
+                          <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                        </svg>
+                      </a>
+                    </p>
+                  </div>
+                </div>
+            </div>
+          </div>
         </div>
       </div>
     );
