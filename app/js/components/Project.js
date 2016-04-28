@@ -1,5 +1,6 @@
 'use strict';
 
+import 'babel-polyfill';
 import React              from 'react';
 import {Link}             from 'react-router';
 import ImagesLoaded       from 'imagesLoaded';
