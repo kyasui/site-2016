@@ -53,7 +53,7 @@ const ProjectsData = {
       'project-slug': 'john-heart-jackie',
       'project-title': 'John Heart Jackie',
       'project-role': 'Developer',
-      'project-description': 'John Heart Jackie is a Folk/Rock duo based in NYC and Portland, OG.',
+      'project-description': 'John Heart Jackie is a Folk/Rock duo based in NYC and Portland, OR.',
       'image': '/images/jhj-hero.png',
       'description': [
         'Development for JHJ - Episodes - a visualization/companion app to JHJ\'s latest LP.'
