@@ -183,7 +183,7 @@ class Nav extends React.Component {
         <div className="site-nav-header" ref="site-nav-header">
           <IndexLink className="site-nav-main-item site-nav-item logo " to="/">Kei Yasui</IndexLink>
           <p className="site-nav-sub-item site-nav-item about-content">New York City based Developer + Designer.</p>
-          <p className="site-nav-sub-item site-nav-item about-content"><a target="_blank" href="https://twitter.com/keiyasui">Twitter</a> – <a target="_blank" href="https://github.com/kyasui">Github</a> – <a target="_blank" href="https://www.linkedin.com/in/kei-yasui-856a1ba">LinkedIn</a></p>
+          <p className="site-nav-sub-item site-nav-item about-content"><a target="_blank" href="https://twitter.com/keiyasui">Twitter</a> – <a target="_blank" href="https://github.com/kyasui">Github</a> – <a target="_blank" href="https://www.linkedin.com/in/kei-yasui-856a1ba">LinkedIn</a> – <a target="_blank" href="https://workingnotworking.com/keiyasui">WNW</a></p>
           <p className="site-nav-sub-item site-nav-item about-content">info@keiyasui.com</p>
           <h3 className="site-nav-item site-nav-sub-item title animated-nav-item">Projects:</h3>
         </div>

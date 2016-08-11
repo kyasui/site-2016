@@ -50,6 +50,37 @@ const ProjectsData = {
       ]
     },
     {
+      'project-slug': 'made-in-america',
+      'project-title': 'Made In America',
+      'project-role': 'Developer',
+      'project-description': 'Budweiser Made In America is an annual music fest in Philadelphia, PA.',
+      'image': '/images/mia-hero.jpg',
+      'description': [
+        'Website development for Made In America Fest. Full custom theme and CMS integration.'
+      ],
+      'role': 'Developer',
+      'year': '2016',
+      'credits': [
+        {
+          'credit': 'Layerframe',
+          'linkItself': 'http://layerframe.com/'
+        }
+      ],
+      'tech': [
+        'SASS',
+        'Timber/Twig',
+        'Javascript',
+        'Wordpress',
+        'PHP'
+      ],
+      'links': [
+        {
+          'linkText': 'Website',
+          'linkItself': 'http://www.madeinamericafest.com/16/'
+        }
+      ]
+    },
+    {
       'project-slug': 'john-heart-jackie',
       'project-title': 'John Heart Jackie',
       'project-role': 'Developer',
