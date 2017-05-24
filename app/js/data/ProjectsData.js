@@ -4,6 +4,69 @@ const ProjectsData = {
 
   projects: [
     {
+      'project-slug': 'visualizing-100-days',
+      'project-title': 'Visualizing 100 Days',
+      'project-role': 'Developer',
+      'project-description': 'Culture Mapping the way Trump tweets over his first 100 days. A data visualization by scenarioDNA, a consulting firm that specializes in reading cultural change.',
+      'image': '/images/100-days-hero.jpg',
+      'description': [
+        'Development for scenarioDNA\'s "Visualizing 100 Days" data visualization project.'
+      ],
+      'role': 'Developer',
+      'year': '2017',
+      'credits': [
+        {
+          'credit': 'scenarioDNA',
+          'linkItself': 'https://www.scenariodna.com/'
+        },
+        {
+          'credit': 'DadJokes',
+          'linkItself': 'http://dadjokes.biz/'
+        }
+      ],
+      'tech': [
+        'ReactJS',
+        'D3',
+        'Canvas',
+        'Express',
+        'MongoDB'
+      ],
+      'links': [
+        {
+          'linkText': 'Website',
+          'linkItself': 'https://100days.scenariodna.com/'
+        }
+      ]
+    },
+    {
+      'project-slug': 'free-ex-tenebris',
+      'project-title': 'Ex Tenebris',
+      'project-role': 'Developer',
+      'project-description': 'Ex Tenebris is a Four Song EP by the band FREE.',
+      'image': '/images/ex-tenebris.jpg',
+      'description': [
+        'Design and Development for FREE - Ex Tenebris EP Microsite.'
+      ],
+      'role': 'Designer / Developer',
+      'year': '2017',
+      'credits': [
+        {
+          'credit': 'Triple B Records'
+        }
+      ],
+      'tech': [
+        'HTML',
+        'CSS',
+        'JS'
+      ],
+      'links': [
+        {
+          'linkText': 'Website',
+          'linkItself': 'https://extenebr.is'
+        }
+      ]
+    },
+    {
       'project-slug': 'google-primer',
       'project-title': 'Google Primer',
       'project-role': 'Tech Lead / Developer',
@@ -194,72 +257,8 @@ const ProjectsData = {
         'LESS',
         'Javascript'
       ]
-    },
-    {
-      'project-slug': 'red-peak',
-      'project-title': 'Red Peak Media',
-      'project-role': 'Developer',
-      'project-description': 'Red Peak Media is a global Strategic Engagement agency.',
-      'image': '/images/rpmc-hero.png',
-      'description': [
-        'Development for Red Peak Media Company\'s refreshed website.',
-        'Working closely with designers, I implemented a fully responsive, unique diamond based layout.'
-      ],
-      'role': 'Developer',
-      'year': '2013',
-      'credits': [
-        {
-          'credit': 'Layerframe',
-          'linkItself': 'http://layerframe.com/'
-        }
-      ],
-      'tech': [
-        'HTML',
-        'LESS',
-        'Javascript',
-        'Wordpress',
-        'PHP'
-      ],
-      'links': [
-        {
-          'linkText': 'Website',
-          'linkItself': 'http://www.rpmc.com/'
-        }
-      ]
-    },
-    {
-      'project-slug': 'red-peak-youth',
-      'project-title': 'Red Peak Youth',
-      'project-role': 'Developer',
-      'project-description': 'Red Peak Youth is a branding and design agency focused solely on the youth consumer.',
-      'image': '/images/rpy-hero.png',
-      'description': [
-        'Website development for Red Peak Youth. Website consists of fully custom Wordpress theme and CMS integration.'
-      ],
-      'role': 'Developer',
-      'year': '2013',
-      'credits': [
-        {
-          'credit': 'Layerframe',
-          'linkItself': 'http://layerframe.com/'
-        }
-      ],
-      'tech': [
-        'HTML',
-        'LESS',
-        'Javascript',
-        'Wordpress',
-        'PHP'
-      ],
-      'links': [
-        {
-          'linkText': 'Website',
-          'linkItself': 'http://www.redpeakyouth.com/'
-        }
-      ]
     }
   ]
-
 };
 
 export default ProjectsData;
