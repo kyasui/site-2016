@@ -75,6 +75,7 @@
     "test": "./node_modules/.bin/gulp test"
   },
   "dependencies": {
-    "gulp-sourcemaps": "^1.6.0"
+    "gulp-sourcemaps": "^1.6.0",
+    "jpegtran-bin": "^3.2.0"
   }
 }

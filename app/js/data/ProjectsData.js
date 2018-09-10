@@ -4,6 +4,42 @@ const ProjectsData = {
 
   projects: [
     {
+      'project-slug': 'made-in-america-2018',
+      'project-title': 'Made in America 2018',
+      'project-role': 'Developer',
+      'project-description': 'Budweiser Made In America is an annual music fest in Philadelphia, PA.',
+      'image': '/images/mia-app-hero.png',
+      'description': [
+        'React Native based Mobile Application development for Made In America Festival. Android / iOS and Back-End.'
+      ],
+      'role': 'Developer',
+      'year': '2018',
+      'credits': [
+        {
+          'credit': 'Layerframe',
+          'linkItself': 'http://layerframe.com/'
+        }
+      ],
+      'tech': [
+        'React Native',
+        'Expo',
+        'Firebase',
+        'Express',
+        'Heroku'
+      ],
+      'links': [
+        {
+          'linkText': 'iOS',
+          'linkItself': 'https://itunes.apple.com/us/app/made-in-america-festival-2018/id1408788539?mt=8'
+        },
+        {
+          'linkText': 'Android',
+          'linkItself': 'https://play.google.com/store/apps/details?id=com.madeinamerica.festival'
+
+        }
+      ]
+    },
+    {
       'project-slug': 'visualizing-100-days',
       'project-title': 'Visualizing 100 Days',
       'project-role': 'Developer',
@@ -114,7 +150,7 @@ const ProjectsData = {
     },
     {
       'project-slug': 'made-in-america',
-      'project-title': 'Made In America',
+      'project-title': 'Made In America 2016',
       'project-role': 'Developer',
       'project-description': 'Budweiser Made In America is an annual music fest in Philadelphia, PA.',
       'image': '/images/mia-hero.jpg',
